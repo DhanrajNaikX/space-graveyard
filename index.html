@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111f">
+  <meta name="description" content="Explore real NASA Moon and Mars missions in a playful space museum. Discover the machines, follow their stories, and play three learning games.">
+  <title>SPACE GRAVEYARD — Every machine has a story</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to exhibits</a>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Space Graveyard home">
+      <span class="brand-mark">✦</span>
+      <span>SPACE<span class="brand-light">GRAVEYARD</span></span>
+    </a>
+
+    <div class="topbar-actions">
+      <button id="sound-toggle" class="sound-button" aria-label="Toggle Sound Effects" title="Toggle Sound">🔊</button>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">☰ <span class="sr-only">Open menu</span></button>
+    </div>
+
+    <nav id="primary-nav" aria-label="Main navigation">
+      <a href="#missions">Exhibits</a>
+      <a href="#worlds">Worlds</a>
+      <a href="#story">Chandu’s Story</a>
+      <a href="#games">Mini-games</a>
+      <a href="#references">Sources</a>
+    </nav>
+    <a class="top-cta" href="#missions">Start exploring <span>↗</span></a>
+  </header>
+
+  <main id="main">
+    <!-- Starfield Canvas Overlay -->
+    <canvas id="starfield-canvas" aria-hidden="true"></canvas>
+
+    <section class="hero" id="home">
+      <div class="hero-sky" aria-hidden="true">
+        <span class="planet planet-moon"></span>
+        <span class="planet planet-mars"></span>
+        <span class="orbit orbit-one"></span>
+        <span class="orbit orbit-two"></span>
+        <span class="hero-star s1">✦</span>
+        <span class="hero-star s2">·</span>
+        <span class="hero-star s3">✧</span>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse"></span> A playful museum of real space missions</p>
+        <h1>Every machine<br>has a <em>story.</em></h1>
+        <p class="hero-lede">Meet the brave explorers that helped us reach the Moon and Mars. Their missions ended in different ways — their discoveries are still with us.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#missions">Explore the exhibits <span>↓</span></a>
+          <a class="text-link" href="#games">Or jump into a game <span>↗</span></a>
+        </div>
+        <div class="hero-note">
+          <span class="note-icon">✧</span>
+          <span><strong>NASA facts, kid-sized.</strong><br>Clear stories with sources you can follow.</span>
+        </div>
+      </div>
+
+      <div class="hero-art" role="img" aria-label="Illustration of a friendly rover exploring a moonlit landscape">
+        <div class="hero-moon"></div>
+        <div class="hero-horizon"></div>
+        <svg class="hero-rover" viewBox="0 0 340 250" aria-hidden="true">
+          <path d="M56 159h226l-20 28H76z" fill="#203952"/>
+          <path d="M103 94h135l24 65H79z" fill="#f1c66e"/>
+          <path d="M111 103h47v46h-47z" fill="#78dce4"/>
+          <path d="M169 103h59l17 46h-76z" fill="#d9eef0"/>
+          <path d="M125 89 147 56l48-10 35 30v18H99z" fill="#e9f0e8"/>
+          <path d="m152 59 39-6 22 20h-72z" fill="#79dce4"/>
+          <circle cx="103" cy="189" r="25" fill="#101e2e" stroke="#b9d9d7" stroke-width="7"/>
+          <circle cx="161" cy="189" r="25" fill="#101e2e" stroke="#b9d9d7" stroke-width="7"/>
+          <circle cx="221" cy="189" r="25" fill="#101e2e" stroke="#b9d9d7" stroke-width="7"/>
+          <path d="M207 77 238 40l29 7 12 21-27 15" fill="none" stroke="#d9eef0" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="284" cy="65" r="9" fill="#ff896f"/>
+          <path d="M137 89 126 35h90l-8 54" fill="#243b51" stroke="#c5e9e8" stroke-width="4"/>
+          <path d="M141 42h77" stroke="#ffcf70" stroke-width="4"/>
+        </svg>
+        <div class="art-caption">
+          <span>FIELD NOTE 001</span>
+          <span>Curiosity travels far.</span>
+        </div>
+        <span class="orbit-label label-moon">THE MOON</span>
+        <span class="orbit-label label-mars">MARS</span>
+      </div>
+
+      <a class="scroll-cue" href="#missions"><span></span> SCROLL TO EXPLORE</a>
+    </section>
+
+    <!-- Quick Exploration Stats -->
+    <section class="curiosity-ticker section-pad" aria-label="Key Space Facts">
+      <div class="ticker-grid">
+        <div class="ticker-card">
+          <span class="ticker-number">384,400 km</span>
+          <span class="ticker-label">Distance to the Moon — Eagle arrived in 3 days!</span>
+        </div>
+        <div class="ticker-card">
+          <span class="ticker-number">225 Million km</span>
+          <span class="ticker-label">Average distance to Mars — radio signals take up to 20 minutes!</span>
+        </div>
+        <div class="ticker-card">
+          <span class="ticker-number">50+ Years</span>
+          <span class="ticker-label">Apollo 11’s laser reflector is still reflecting light today.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exhibits Section -->
+    <section class="intro section-pad" id="missions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Choose your world</p>
+          <h2>Two worlds. <em>Many missions.</em></h2>
+        </div>
+        <p class="section-aside">Tap an exhibit to discover what it did, what happened, and what remains.</p>
+      </div>
+
+      <div class="world-switch" role="group" aria-label="Filter exhibits by world">
+        <button class="world-button active" data-world="all">All exhibits <span>05</span></button>
+        <button class="world-button" data-world="moon">Moon <span>02</span></button>
+        <button class="world-button" data-world="mars">Mars <span>03</span></button>
+      </div>
+
+      <div class="exhibit-grid">
+        <!-- 1. Apollo 11 Lunar Module Eagle -->
+        <article class="exhibit-card card-moon" data-world="moon">
+          <button class="exhibit-open" data-exhibit="eagle" aria-label="Open Apollo 11 exhibit">
+            <span class="card-meta">
+              <span class="world-tag moon-tag">◌ MOON</span>
+              <span>1969</span>
+            </span>
+            <span class="exhibit-illustration lander-art" aria-hidden="true">
+              <span class="lander-dome"></span>
+              <span class="lander-body"></span>
+              <span class="lander-leg l1"></span>
+              <span class="lander-leg l2"></span>
+              <span class="lander-foot f1"></span>
+              <span class="lander-foot f2"></span>
+              <span class="tiny-star">✧</span>
+            </span>
+            <span class="card-copy">
+              <span>
+                <strong>Apollo 11</strong>
+                <small>Eagle Lunar Module</small>
+              </span>
+              <span class="card-arrow">↗</span>
+            </span>
+          </button>
+        </article>
+
+        <!-- 2. Sojourner Rover -->
+        <article class="exhibit-card card-mars" data-world="mars">
+          <button class="exhibit-open" data-exhibit="sojourner" aria-label="Open Sojourner exhibit">
+            <span class="card-meta">
+              <span class="world-tag mars-tag">● MARS</span>
+              <span>1997</span>
+            </span>
+            <span class="exhibit-illustration mini-rover" aria-hidden="true">
+              <span class="rover-panel"></span>
+              <span class="rover-deck"></span>
+              <span class="wheel w1"></span>
+              <span class="wheel w2"></span>
+              <span class="wheel w3"></span>
+              <span class="rover-antenna"></span>
+            </span>
+            <span class="card-copy">
+              <span>
+                <strong>Sojourner</strong>
+                <small>Pathfinder’s rover</small>
+              </span>
+              <span class="card-arrow">↗</span>
+            </span>
+          </button>
+        </article>
+
+        <!-- 3. Opportunity Rover -->
+        <article class="exhibit-card card-mars" data-world="mars">
+          <button class="exhibit-open" data-exhibit="opportunity" aria-label="Open Opportunity exhibit">
+            <span class="card-meta">
+              <span class="world-tag mars-tag">● MARS</span>
+              <span>2004–2018</span>
+            </span>
+            <span class="exhibit-illustration opp-rover" aria-hidden="true">
+              <span class="opp-mast"></span>
+              <span class="opp-body"></span>
+              <span class="opp-panel"></span>
+              <span class="opp-wheel w1"></span>
+              <span class="opp-wheel w2"></span>
+              <span class="opp-wheel w3"></span>
+            </span>
+            <span class="card-copy">
+              <span>
+                <strong>Opportunity</strong>
+                <small>Mars Exploration Rover</small>
+              </span>
+              <span class="card-arrow">↗</span>
+            </span>
+          </button>
+        </article>
+
+        <!-- 4. Ingenuity Helicopter -->
+        <article class="exhibit-card card-mars" data-world="mars">
+          <button class="exhibit-open" data-exhibit="ingenuity" aria-label="Open Ingenuity exhibit">
+            <span class="card-meta">
+              <span class="world-tag mars-tag">● MARS</span>
+              <span>2021–2024</span>
+            </span>
+            <span class="exhibit-illustration heli-art" aria-hidden="true">
+              <span class="heli-top"></span>
+              <span class="heli-mast"></span>
+              <span class="heli-box"></span>
+              <span class="heli-leg"></span>
+              <span class="heli-blade"></span>
+            </span>
+            <span class="card-copy">
+              <span>
+                <strong>Ingenuity</strong>
+                <small>Mars Helicopter</small>
+              </span>
+              <span class="card-arrow">↗</span>
+            </span>
+          </button>
+        </article>
+
+        <!-- 5. Laser Reflector -->
+        <article class="exhibit-card card-moon reflector-card" data-world="moon">
+          <button class="exhibit-open" data-exhibit="reflector" aria-label="Open Apollo 11 reflector exhibit">
+            <span class="card-meta">
+              <span class="world-tag moon-tag">◌ MOON</span>
+              <span>Still studied</span>
+            </span>
+            <span class="exhibit-illustration reflector-art" aria-hidden="true">
+              <span class="reflector-frame">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </span>
+              <span class="laser-line"></span>
+            </span>
+            <span class="card-copy">
+              <span>
+                <strong>Laser Reflector</strong>
+                <small>Apollo 11 science package</small>
+              </span>
+              <span class="card-arrow">↗</span>
+            </span>
+          </button>
+        </article>
+      </div>
+
+      <p class="status-key">
+        <span class="status-dot"></span> Our exhibits explain the difference between hardware left in place, a loss of contact, and an officially ended mission.
+      </p>
+    </section>
+
+    <!-- Planetary Comparison Section -->
+    <section class="section-pad worlds-section" id="worlds">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Planetary Science</p>
+          <h2>The Moon vs. Mars: <em>Where Machines Rest</em></h2>
+        </div>
+        <p class="section-aside">Why do machines last differently on the Moon and Mars? Compare their environments!</p>
+      </div>
+
+      <div class="worlds-comparison-grid">
+        <div class="world-card world-moon-card">
+          <div class="world-card-header">
+            <span class="world-symbol">◌</span>
+            <h3>The Moon</h3>
+            <span class="world-sub">Airless & Preserved Forever</span>
+          </div>
+          <ul class="world-facts-list">
+            <li><strong>Gravity:</strong> 1/6th of Earth (You could leap 6 times higher!)</li>
+            <li><strong>Atmosphere:</strong> Vacuum (No air, no wind, no weather, no rain).</li>
+            <li><strong>Preservation:</strong> Zero erosion! Equipment, footprints, and tracks remain pristine for millions of years.</li>
+            <li><strong>Temperature:</strong> Swings from -130°C (-202°F) at night to +120°C (248°F) in daylight.</li>
+            <li><strong>Famous Equipment:</strong> Apollo 11 Descent Stage & Laser Ranging Retroreflector.</li>
+          </ul>
+        </div>
+
+        <div class="world-card world-mars-card">
+          <div class="world-card-header">
+            <span class="world-symbol">●</span>
+            <h3>Mars</h3>
+            <span class="world-sub">The Red Dusty Planet</span>
+          </div>
+          <ul class="world-facts-list">
+            <li><strong>Gravity:</strong> 3/8th of Earth (You could jump over a family car!)</li>
+            <li><strong>Atmosphere:</strong> Thin carbon dioxide (~1% of Earth's air pressure).</li>
+            <li><strong>Weather:</strong> Planet-encircling dust storms, dust devils, and cold winds.</li>
+            <li><strong>Weathering:</strong> Fine iron oxide dust coats solar panels and gears over years.</li>
+            <li><strong>Famous Equipment:</strong> Sojourner, Opportunity, Spirit, and Ingenuity.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Section with Chandu -->
+    <section class="story-section section-pad" id="story">
+      <div class="story-visual">
+        <div class="story-planet"></div>
+        <div class="chandu-bubble">Hi, explorer!<br>Ready for a story?</div>
+        <div class="chandu">
+          <div class="chandu-antenna"></div>
+          <div class="chandu-head">
+            <span class="eye eye-left"></span>
+            <span class="eye eye-right"></span>
+            <span class="smile"></span>
+          </div>
+          <div class="chandu-body">
+            <span class="chandu-badge">C</span>
+          </div>
+          <div class="chandu-arm arm-left"></div>
+          <div class="chandu-arm arm-right"></div>
+          <div class="chandu-foot foot-left"></div>
+          <div class="chandu-foot foot-right"></div>
+        </div>
+        <span class="story-sticker">STORY<br>MODE</span>
+      </div>
+
+      <div class="story-copy">
+        <p class="eyebrow">A story with a fact-check</p>
+        <h2>Meet Chandu.<br><em>Take a trip to the Moon.</em></h2>
+        <p>Chandu is our made-up museum guide. He can make the journey feel like an adventure, while the Apollo 11 mission facts stay real.</p>
+        <div class="fiction-note">
+          <span>✦</span>
+          <p>
+            <strong>Fictional narration</strong><br>
+            Chandu and his conversations are pretend. Apollo 11 dates, spacecraft, and events are based on NASA records.
+          </p>
+        </div>
+        <button class="button button-dark" id="story-button">Read Chandu’s story <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- Mini-Games Section -->
+    <section class="games-section section-pad" id="games">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Play to learn</p>
+          <h2>Mission <em>mini-games.</em></h2>
+        </div>
+        <p class="section-aside">Short challenges inspired by real missions. The landing puzzle is a safe, simplified game — not a flight simulator.</p>
+      </div>
+
+      <div class="game-grid">
+        <!-- Game 1: Land the Eagle -->
+        <article class="game-card game-landing">
+          <div class="game-top">
+            <span class="game-number">01 / MOON</span>
+            <span class="game-icon">◐</span>
+          </div>
+          <div class="game-art landing-game-art" aria-hidden="true">
+            <span class="game-crater crater-a"></span>
+            <span class="game-crater crater-b"></span>
+            <span class="game-eagle">▲</span>
+            <span class="game-zone">SAFE ZONE</span>
+          </div>
+          <h3>Land the Eagle</h3>
+          <p>Pick a clear landing site, steering around the rocks and craters.</p>
+          <button class="game-link" data-game="landing">Play the puzzle <span>→</span></button>
+        </article>
+
+        <!-- Game 2: Repair the Rover -->
+        <article class="game-card game-repair">
+          <div class="game-top">
+            <span class="game-number">02 / MARS</span>
+            <span class="game-icon">⚙</span>
+          </div>
+          <div class="game-art repair-game-art" aria-hidden="true">
+            <span>◍</span>
+            <span>▤</span>
+            <span>◒</span>
+            <span>📡</span>
+          </div>
+          <h3>Repair the Rover</h3>
+          <p>Match rover parts to the jobs they do. Drag, drop, or tap to match.</p>
+          <button class="game-link" data-game="repair">Play the match-up <span>→</span></button>
+        </article>
+
+        <!-- Game 3: Mission Memory -->
+        <article class="game-card game-memory">
+          <div class="game-top">
+            <span class="game-number">03 / MISSION MIX</span>
+            <span class="game-icon">✧</span>
+          </div>
+          <div class="game-art memory-game-art" aria-hidden="true">
+            <span>✦</span>
+            <span>·</span>
+            <span>◌</span>
+            <span>✧</span>
+            <span>◐</span>
+            <span>▲</span>
+          </div>
+          <h3>Mission Memory</h3>
+          <p>Flip the cards and find matching mission symbols.</p>
+          <button class="game-link" data-game="memory">Play the memory game <span>→</span></button>
+        </article>
+      </div>
+
+      <!-- Explorer Log & Badges Progress -->
+      <div class="game-progress" id="progress-summary" aria-live="polite">
+        <span class="progress-star">✦</span>
+        <span>
+          <strong>Your explorer log</strong>
+          <small><span id="games-won">0</span> of 3 games complete</small>
+        </span>
+        <span class="progress-track"><i id="progress-fill"></i></span>
+        <span class="badge-count" id="badge-count">0 badges</span>
+      </div>
+
+      <div class="badges-display-shelf">
+        <div class="badge-shelf-item" id="badge-item-landing">
+          <span class="shelf-badge-icon">🦅</span>
+          <span class="shelf-badge-name">Lunar Pilot</span>
+        </div>
+        <div class="badge-shelf-item" id="badge-item-repair">
+          <span class="shelf-badge-icon">🛠️</span>
+          <span class="shelf-badge-name">Martian Mechanic</span>
+        </div>
+        <div class="badge-shelf-item" id="badge-item-memory">
+          <span class="shelf-badge-icon">🧠</span>
+          <span class="shelf-badge-name">Mission Master</span>
+        </div>
+        <div class="badge-shelf-item" id="badge-item-story">
+          <span class="shelf-badge-icon">🚀</span>
+          <span class="shelf-badge-name">Apollo Historian</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section class="closing section-pad">
+      <div class="closing-orbit" aria-hidden="true">
+        <span>✦</span><span>·</span><span>✧</span>
+      </div>
+      <p class="eyebrow">Curiosity is a superpower</p>
+      <h2>The next explorer<br>could be <em>you.</em></h2>
+      <a class="button button-primary" href="#missions">Choose your first exhibit <span>↗</span></a>
+    </section>
+
+    <!-- References & NASA Citations Section -->
+    <section class="references section-pad" id="references">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Check the mission log</p>
+          <h2>Facts from <em>NASA.</em></h2>
+        </div>
+        <p class="section-aside">Every exhibit links to mission information from NASA or its Jet Propulsion Laboratory.</p>
+      </div>
+
+      <div class="source-list">
+        <a href="https://www.nasa.gov/missions/apollo/apollo-11-mission-overview/" target="_blank" rel="noopener">
+          Apollo 11 mission overview <span>NASA ↗</span>
+        </a>
+        <a href="https://science.nasa.gov/mission/mars-pathfinder/" target="_blank" rel="noopener">
+          Mars Pathfinder mission and Sojourner <span>NASA Science ↗</span>
+        </a>
+        <a href="https://www-robotics.jpl.nasa.gov/what-we-do/flight-projects/pathfinder/" target="_blank" rel="noopener">
+          Sojourner rover details and mission end <span>NASA JPL Robotics ↗</span>
+        </a>
+        <a href="https://science.nasa.gov/mission/mer-opportunity/" target="_blank" rel="noopener">
+          Opportunity mission overview <span>NASA Science ↗</span>
+        </a>
+        <a href="https://science.nasa.gov/resource/opportunitys-last-message/" target="_blank" rel="noopener">
+          Opportunity’s last transmission <span>NASA Science ↗</span>
+        </a>
+        <a href="https://www.nasa.gov/missions/mars-2020-perseverance/ingenuity-helicopter/nasa-performs-first-aircraft-accident-investigation-on-another-world/" target="_blank" rel="noopener">
+          Ingenuity Flight 72 investigation <span>NASA ↗</span>
+        </a>
+        <a href="https://ilrs.cddis.eosdis.nasa.gov/missions/satellite_missions/current_missions/ap11_general.html" target="_blank" rel="noopener">
+          Apollo 11 laser ranging reflector <span>NASA ILRS ↗</span>
+        </a>
+      </div>
+
+      <div class="nasa-credits-box">
+        <h3>NASA Public Domain & Image Credits</h3>
+        <p>
+          All NASA mission records, photography, technical specifications, and historical flight logs used in SPACE GRAVEYARD are created by NASA / Jet Propulsion Laboratory and are in the public domain in the United States under 17 U.S.C. § 105. This website is an educational digital museum created for the NASA Space Apps Challenge.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#home">
+      <span class="brand-mark">✦</span>
+      <span>SPACE<span class="brand-light">GRAVEYARD</span></span>
+    </a>
+    <p>A child-friendly prototype about real machines, real missions, and the stories they leave behind.</p>
+    <span>NASA Space Apps Challenge · Prototype</span>
+  </footer>
+
+  <!-- Dialog Modals -->
+  <dialog id="exhibit-dialog" class="modal">
+    <button class="modal-close" aria-label="Close exhibit">×</button>
+    <div id="exhibit-content"></div>
+  </dialog>
+
+  <dialog id="game-dialog" class="modal game-modal">
+    <button class="modal-close" aria-label="Close game">×</button>
+    <div id="game-content"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
